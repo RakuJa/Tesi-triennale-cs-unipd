@@ -12,5 +12,3 @@ sudo apt-get install -y cm-super
 ## Manage config
 
 Open __tesi-config.tex__ and modify to your likings
-
-prova
