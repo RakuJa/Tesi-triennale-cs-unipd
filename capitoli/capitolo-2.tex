@@ -12,14 +12,30 @@
 %**************************************************************
 \section{Cos'è un web crawler?}
 
-Lorem ipsum.
+Un web crawler è un software che analizza i contenuti di una rete in un modo metodico e automatizzato. L'utilizzo più comune dei crawler avviene sul World Wide Web; tramite una lista di URL da visitare identifica tutti i collegamenti ipertestuali presenti nel documento e li aggiunge alla lista di URL da visitare. Data la natura della ricerca essa potrebbe protrarsi per un tempo indefinito, tuttavia, grazie ad alcune politiche si può influenzare l'ordine di ricerca, la frequenza e quali pagine evitare. I motori di ricerca odierni si basano su web crawler per poter ricercare ed indicizzare i vari siti internet.
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.3\columnwidth]{WebCrawlerArchitecture.png} 
+    \caption{Architettura di un web crawler.}
+\end{figure}
 
 %**************************************************************
-\section{Cos'è un web scraper?}
+\section{Cosa significa web scraping?}
 
-Lorem ipsum.
+Con il termine web scraping ci si riferisce all'estrapolazione di dati dai siti web. Il termine generalmente comprende anche l'estrapolazione fatta manualmente tramite software anche se il termine principalmente si riferisce al processo automatizzato implementato tramite web crawler. L'attività principale di cui si occupa un web scraper è la trasformazione di informazioni libere in informazioni strutturate per renderle di più facile utilizzo per una successiva analisi. 
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.3\columnwidth]{webscraping.png} 
+    \caption{Funzionamento di un web scraper.}
+\end{figure}
 
 %**************************************************************
+
+\section{Studio dei moduli presenti}
+
+Prima di progettare e sviluppare il nuovo modulo di web crawling, ho effettuato un’analisi della struttura della piattaforma presente per comprenderne la struttura e le funzionalità offerte. Principalmente è stato fondamentale individuare l'organizzazione delle funzionalità di log, l'organizzazione dei file di configurazione e il codice principale da cui si avvia il programma. La struttura del modulo è risultata pulita, di facile comprensione e molto scalabile, richiedendo per l'inserimento del nuovo modulo l'aggiunta di poche e coincise linee di codice.
 
 
 \section{Individuazione delle funzionalità}
