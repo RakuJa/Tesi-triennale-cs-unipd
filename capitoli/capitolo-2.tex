@@ -45,6 +45,13 @@ Il modulo di web crawling e web scraping oltre a rispettare le definizioni date 
 
 \subsection{Funzionalità aggiuntive}
 
+Oltre alle funzionalità sopra descritte, in seguito a vari confronti con il tutor aziendale, è stato deciso di arricchire il prodotto con delle nuove funzionalità. \newline{}
+La prima riguarda l'estensione delle funzionalità pre esistenti su rete indicizzata, in questo modo si può avere un tracciamento più completo del flusso seguito dal modulo durante la ricerca delle informazioni rilevanti. Un'altra funzionalità che è stata ritenuta importante da aggiungere è stata la scrittura di informazioni di diagnostica su file csv facilmente utilizzabili sia dalla macchina che da persone. \newline{} Infine l'ultima funzionalità aggiunta è la realizzazione di una libreria per poter automaticamente creare grafici e rappresentare visivamente i dati raccolti.
+
+
 %**************************************************************
 \section{Caratteristiche del modulo}
 %**************************************************************
+
+Il modulo, oltre a fornire tutte le funzionalità descritte precedentemente, deve avere le
+seguenti caratteristiche: deve essere scalabile e performante per permettere un aumento o diminuzione delle risorse; questo viene realizzato tramite una corretta progettazione mirata alla ottimizzazione dell'utilizzo di memoria per poter permettere a più istanze del programma di essere eseguite contemporaneamente tramite la libreria Celery.
