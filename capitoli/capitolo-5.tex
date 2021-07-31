@@ -3,43 +3,34 @@
 % !TEX root = ../tesi.tex
 
 %**************************************************************
-\chapter{Progettazione e codifica}
-\label{cap:progettazione-codifica}
+\chapter{Verifica e validazione}
+\label{cap:verifica-validazione}
 %**************************************************************
 
-\intro{Breve introduzione al capitolo}\\
+\intro{In questo capitolo viene descritto come sono state affrontate le attività di verifica e
+validazione del prodotto.}\\
 
 %**************************************************************
-\section{Tecnologie e strumenti}
-\label{sec:tecnologie-strumenti}
+\section{Considerazioni}
+\label{sec:considerazioni}
 
-Di seguito viene data una panoramica delle tecnologie e strumenti utilizzati.
+Nel piano di lavoro, redatto dal tutor aziendale e approvato dal tutor interno, veniva menzionato lo sviluppo del test automatici come un obiettivo opzionale, preferendo ad essi nuove feature. Per questo, in accordo con il mio tutor aziendale, mi sono dedicato maggiormente all’implementazione e documentazione di esse. Ho comunque avuto modo di effettuare dei test manuali sull’applicativo, verificando il suo corretto funzionamento. I test automatici, che per mancanza di tempo non sono stati sviluppati, verranno implementati successivamente dall’azienda, per provare l’effettiva qualità del software prodotto.
 
-\subsection*{Tecnologia 1}
-Descrizione Tecnologia 1.
+\section{Analisi statica}
 
-\subsection*{Tecnologia 2}
-Descrizione Tecnologia 2
+Per effettuare l’analisi statica del codice, non sono stati utilizzati particolati strumenti come per esempio linter, questo perché ho ritenuto che l’IDE PyCharm fornisse aiuti più che sufficienti. È noto che PyCharm suggerisce correzioni per eventuali errori introdotti nel codice e miglioramenti durante la scrittura del codice.
+In particolare, PyCharm segnala, più comunemente:
+\begin{itemize}
+	\item incoerenza tra tipi di dati coinvolti in un’istruzione se utilizzati i type hint;
+	\item codice non raggiungibile dal flusso di controllo;
+	\item variabili dichiarate ma non utilizzate;
+	\item metodi dichiarati ma non implementati;
+	\item errori di sintassi;
+	\item controllo delle librerie importate ma non utilizzate.
+\end{itemize}
 
-%**************************************************************
-\section{Ciclo di vita del software}
-\label{sec:ciclo-vita-software}
+Inoltre, per concludere, Eclipse offre due funzionalità che ho utilizzato spesso, una è la formattazione automatica del codice e l’altra l’importazione e organizzazione delle classi, sempre automatica.
 
-%**************************************************************
-\section{Progettazione}
-\label{sec:progettazione}
+\section{Analisi dinamica}
 
-\subsubsection{Namespace 1} %**************************
-Descrizione namespace 1.
-
-\begin{namespacedesc}
-    \classdesc{Classe 1}{Descrizione classe 1}
-    \classdesc{Classe 2}{Descrizione classe 2}
-\end{namespacedesc}
-
-
-%**************************************************************
-\section{Design Pattern utilizzati}
-
-%**************************************************************
-\section{Codifica}
+Per quanto concerne l’analisi dinamica, nel corso dell’intera fase di codifica, ho potuto verificare il codice utilizzando lo strumento integrato di PyCharm per effettuare il debug, insieme alla libreria Python logger.
