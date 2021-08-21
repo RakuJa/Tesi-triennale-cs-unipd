@@ -13,7 +13,7 @@
 \section{Strumenti utilizzati}
 
 \subsection{Ambiente di sviluppo}
-Durante le 8 settimane di stage, mi è stata assegnata una macchina con sistema operativo Windows 10 64 bit per svolgere il tirocinio universitario. Mi è stato richiesto di utilizzare Virtual Box per poter creare l'ambiente di sviluppo con sistema operativo Debian 10.10 (Buster). \newline{} Virtual Box è un software gratuito e open source per l'esecuzione di macchine virtuali per architettura x86 e 64bit che supporta Windows, GNU/Linux e macOS come sistemi operativi host, ed è in grado di eseguire Windows, GNU/Linux, OS/2 Warp, BSD come ad esempio OpenBSD, FreeBSD e infine Solaris e OpenSolaris come sistemi operativi guest.\newline{}
+Durante le 8 settimane di stage, mi è stata assegnata una macchina con sistema operativo Windows 10 64 bit per svolgere il tirocinio universitario. Mi è stato richiesto di utilizzare Virtual Box per poter creare l'ambiente di sviluppo e l'ambiente di test. \newline{} Virtual Box è un software gratuito e open source per l'esecuzione di macchine virtuali per architettura x86 e 64bit che supporta Windows, GNU/Linux e macOS come sistemi operativi host, ed è in grado di eseguire Windows, GNU/Linux, OS/2 Warp, BSD come ad esempio OpenBSD, FreeBSD e infine Solaris e OpenSolaris come sistemi operativi guest.\newline{}
 Nella macchina virtuale in seguito mi è stato consigliato di utilizzare PyCharm come strumento per lo sviluppo del prodotto.\newline{}
 PyCharm è un IDE integrato multi-piattaforma per Python; è un software distribuito sotto i termini della Apache License nella sua versione "Community".
 \begin{figure}[!h]
@@ -30,7 +30,22 @@ PyCharm è un IDE integrato multi-piattaforma per Python; è un software distrib
         \label{fig:pycharm} 
     \end{minipage}  
 \end{figure}
-
+\newpage{}
+Nelle macchine virtuali sono stati da me configurati due ambienti con due sistemi operativi diversi. L'ambiente di sviluppo è stato configurato con sistema operativo Debian 10.10 (Buster) mentre l'ambiente di test è stato configurato per simulare il più possibile l'ambiente in produzione, utilizzando quindi come sistema operativo CentOS 7.
+\begin{figure}[!h]
+    \begin{minipage}{.5\textwidth} 
+        \centering 
+        \includegraphics[width=.4\linewidth]{logo-debian.png} 
+        \caption{Logo Debian} 
+        \label{fig:virtualbox} 
+    \end{minipage}% 
+    \begin{minipage}{.5\textwidth} 
+        \centering 
+        \includegraphics[width=.4\linewidth]{logo-centos.png} 
+        \caption{Logo CentOS} 
+        \label{fig:pycharm} 
+    \end{minipage}  
+\end{figure}
 \subsection{Strumenti di versionamento}
 
 L’azienda, per tutti i suoi prodotti, adotta strumenti per il controllo di versione, nello specifico Git. Git è un software di controllo versione distribuito utilizzabile da interfaccia a riga di comando, creato da Linus Torvalds nel 2005. È stato scelto rispetto ad altri strumenti di Version Control System (VCS) per il supporto di branching e merging e perché comprende strumenti specifici per visualizzare e navigare una cronologia di sviluppo non lineare. Infine, come servizio di hosting web-based, è stato utilizzato GitLab.
@@ -72,7 +87,7 @@ Per quanto riguarda la comunicazione con il tutor aziendale, sono stati utilizza
 \subsection{Altri strumenti}
 
 \textit{Redis} è lo store di strutture dati chiave-valore in memoria più usato, è rapido ed open source ed stato utilizzato per evitare di fare scraping dello stesso indirizzo molteplici volte. I principali casi d'uso sono il caching, la gestione di sessioni, servizi pub/sub e graduatorie. Grazie alla sua leggerezza e rapidità viene utilizzato per evitare di analizzare molteplici volte un url. Si controlla se è presente su \textit{Redis}, se lo è si scarta l'indirizzo, altrimenti viene salvato su \textit{Redis} con un tempo di vita che una volta scaduto porta all'eliminazione automatica della entry. Dispone di licenza BSD ed è un acronimo e sta per REmote DIctionary Server.
-\textit{Celery} è un gestore di code asincrono open source basato sul passaggio di messaggi distribuiti. Le unità di esecuzione, chiamate tasks, sono eseguite in concorrenza in uno o più nodi worker utilizzando il multiprocessing, eventlet o gevent. \textit{Celery} è stato utilizzato per creare più istanze del programma e per immagazzinare in una coda gli url trovati da analizzare.
+\textit{Celery} è un gestore di code asincrono open source basato sul passaggio di messaggi distribuiti. Le unità di esecuzione, chiamate tasks, sono eseguite in concorrenza in uno o più nodi worker utilizzando il multiprocessing, eventlet o gevent. \textit{Celery} è stato utilizzato per creare più istanze del programma e per immagazzinare in una coda gli url trovati da analizzare.\newline{}
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
@@ -87,14 +102,30 @@ Per quanto riguarda la comunicazione con il tutor aziendale, sono stati utilizza
         \label{fig:celery} 
     \end{minipage}% 
 \end{figure}
-Infine RabbitMQ è un message-oriented middleware (detto anche broker di messaggistica) che implementa il protocollo Advanced Message Queuing Protocol (AMQP). Esso è stato utilizzato per comunicare con Celery. Il server RabbitMQ è scritto in Erlang e si basa sul framework Open Telecom Platform (OTP) per la gestione del clustering e del failover. Un broker di messaggi è un programma intermedio che traduce un messaggio dal protocollo di messaggistica formale del mittente al protocollo di messaggistica formale del ricevitore. I broker di messaggi sono elementi di telecomunicazione o reti di computer in cui le applicazioni software comunicano scambiando messaggi definiti in modo formale. 
 
+Infine RabbitMQ è un message-oriented middleware (detto anche broker di messaggistica) che implementa il protocollo Advanced Message Queuing Protocol (AMQP). Esso è stato utilizzato per comunicare con Celery. Il server RabbitMQ è scritto in Erlang e si basa sul framework Open Telecom Platform (OTP) per la gestione del clustering e del failover. Un broker di messaggi è un programma intermedio che traduce un messaggio dal protocollo di messaggistica formale del mittente al protocollo di messaggistica formale del ricevitore. I broker di messaggi sono elementi di telecomunicazione o reti di computer in cui le applicazioni software comunicano scambiando messaggi definiti in modo formale. 
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=0.4\columnwidth]{logo-rabbitmq.png} 
     \caption{Logo RabbitMQ}
     \label{fig:rabbitmq} 
 \end{figure}
+
+\textit{Amazon S3} (Simple Storage Service) è un servizio web di memorizzazione offerto da Amazon Web Services ed è stato utilizzato per immagazzinare gli screenshot e il codice sorgente delle pagine classificate interessanti dal modulo mentre \textit{Elasticsearch} è un server di ricerca basato su Lucene, con capacità Full Text, con supporto ad architetture distribuite. Tutte le funzionalità sono nativamente esposte tramite interfaccia RESTful ed è stato utilizzato per immagazzinare e ricercare le pagine interessanti per il modulo insieme a tutti i metadati correlati alla ricerca.
+\begin{figure}[!h]
+    \begin{minipage}{.5\textwidth} 
+        \centering 
+        \includegraphics[width=.5\linewidth]{logo-amazons3.png} 
+        \caption{Amazon S3} 
+        \label{fig:amazons3} 
+    \end{minipage}% 
+    \begin{minipage}{.5\textwidth} 
+        \centering 
+        \includegraphics[width=.5\linewidth]{logo-elasticsearch.png} 
+        \caption{Logo Elasticsearch} 
+        \label{fig:elasticsearch} 
+    \end{minipage}% 
+\end{figure} 
 
 %**************************************************************
 \section{Tecnologie utilizzate}
