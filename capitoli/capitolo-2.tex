@@ -42,60 +42,83 @@ Prima di progettare e sviluppare il nuovo modulo di web crawling, ho effettuato 
 
 \subsection{Notazione obiettivi}
 Si farà riferimento ai requisiti secondo le seguenti notazioni:
-\begin{table}[!htbp]
-  \centering
-    \begin{tabularx}{\textwidth}{cX}
-    \toprule
+\begin{longtable}{|p{0.2\textwidth}|p{0.8\textwidth}|}
+	\caption{Notazione dei requisiti}
+	\label{tab:notazione-requisiti} \\
+	\hline
     \textbf{Notazione}	&	\textbf{Descrizione} \\
-    \midrule
     OB			&	Requisiti obbligatori, vincolanti in quanto obiettivo primario richiesto dal committente. \\  
 	\hline
     D			&	Requisiti desiderabili, non vincolanti o strettamente necessari, ma dal riconoscibile valore aggiunto. \\ 
 	\hline
     OP			&	Requisiti opzionali, rappresentanti valore aggiunto non strettamente competitivo. \\
-    \bottomrule
-    \end{tabularx}%
-  \label{tab:notazione-requisiti}%
-  \caption{Notazione dei requisiti}
-\end{table}%
+    \hline
+\end{longtable}%
 
 
-\subsection{Tabella obiettivi}
-
-\begin{table}[!htbp]
-  \centering
-    \begin{tabularx}{\textwidth}{cX}
-    \toprule
-    \textbf{Codice}	&	\textbf{Descrizione} \\
-    \midrule
-    OB1			&	Configurazione dell'ambiente di sviluppo. \\  
+\begin{longtable}{|p{0.2\textwidth}|p{0.8\textwidth}|}
+	\caption{Tabella degli obiettivi}
+	\label{tab:tabella-obiettivi} \\
 	\hline
-    OB2			&	Scrittura del documento "Analisi dei Requisiti". \\ 
+	\textbf{Codice}	&	\textbf{Descrizione} \\
+    \hline
+    OB01		&	Configurazione dell'ambiente di sviluppo. \\  
 	\hline
-    OB3			&	Scrittura della guida "README.md". \\
+    OB02		&	Scrittura del documento "Analisi dei Requisiti". \\ 
+	\hline
+    OB03		&	Scrittura della guida "README.md". \\
     \hline
-    OB4			&	Progettazione del modulo di web crawling intelligente. \\
-    OB5			&	Funzionamento su rete Tor. \\
+    OB04		&	Progettazione del modulo di web crawling intelligente. \\
     \hline
-    OB6			&	Funzionamento utilizzando la libreria "requests". \\
+    OB05		&	Funzionamento del modulo su rete Tor. \\
     \hline
-    OB7			&	Implementazione di "celery". \\
+    OB06		&	Funzionamento utilizzando la libreria "requests". \\
     \hline
-    OB8			&	Configurazione dei file di log. \\
+    OB07		&	Implementazione di "celery". \\
     \hline
-    OB9			&	Ricerca url da analizzare tramite tag href. \\
+    OB08		&	Configurazione dei file di log. \\
+    \hline
+    OB09		&	Ricerca url da analizzare tramite tag href. \\
     \hline
     OB10		&	Implementazione della ricerca di informazioni interessanti tramite regex. \\
     \hline
     OB11		&	Implementazione di priorità di analisi calcolate dinamicamente ed intelligentemente. \\
     \hline
     OB12		&	Implementazione di un sistema per riprovare url con i quali è fallita la connessione. \\
-        
-    \bottomrule
-    \end{tabularx}%
-  \label{tab:notazione-requisiti}%
-  \caption{Notazione dei requisiti}
-\end{table}%
+    \hline
+    D01			&	Funzionamento del modulo su clear web. \\
+    \hline
+    D02			&	Implementazione di un sistema di caching tramite redis degli url visitati. \\
+    \hline
+    D03			&	Ricerca url da analizzare in tutto il codice sorgente della pagina. \\
+    \hline
+    D04			&	Sanitizzazione degli url estrapolati. \\
+    \hline
+    D05			&	Implementazione di una lista di siti di cui evitare l'analisi. \\
+    \hline 
+    D06			&	Implementazione dell'utilizzo di Selenium. \\
+    \hline
+    D07			&	Creazione di file di log in formato csv. \\
+    \hline
+    D08			&	Implementazione di chiamate di rete intelligenti tramite gli headers HTTP. \\
+    \hline
+    D09			&	Salvataggio ed utilizzo dei cookie di sessione. \\
+    \hline
+    D10			&	Creazione dell'ambiente di test. \\
+    \hline
+    OP01		&	Implementazione di molteplici browser tramite selenium. \\
+    \hline
+    OP02		&	Funzionamento del modulo su rete I2P. \\
+    \hline
+    OP03		&	Estensiva gestione delle eccezioni. \\
+    \hline
+    OP04		&	Implementazione del salvataggio di file su directory temporanee. \\
+    \hline
+    OP05		&	Salvataggio di screenshot e codice sorgente degli url interessanti su Amazon S3. \\
+    \hline
+    OP06		&	Scrittura dei test di unità. \\
+    \hline
+\end{longtable}%
 
 \subsection{Funzionalità aggiuntive}
 
