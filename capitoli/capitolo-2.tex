@@ -38,10 +38,64 @@ Con il termine web scraping ci si riferisce all'estrapolazione di dati dai siti 
 Prima di progettare e sviluppare il nuovo modulo di web crawling, ho effettuato un’analisi della struttura della piattaforma presente per comprenderne la struttura e le funzionalità offerte. Principalmente è stato fondamentale individuare l'organizzazione delle funzionalità di log, l'organizzazione dei file di configurazione e il codice principale da cui si avvia il programma. La struttura del modulo è risultata pulita, di facile comprensione e molto scalabile, richiedendo per l'inserimento del nuovo modulo l'aggiunta di poche e coincise linee di codice.
 
 
-\section{Individuazione delle funzionalità}
+\section{Individuazione degli obiettivi}
 
-Il modulo di web crawling e web scraping oltre a rispettare le definizioni date in precedenza deve rispettare delle funzionalità ritenute obbligatorie. Innanzitutto per poter navigare il dark web deve essere possibile effettuare chiamate di rete tramite la rete Tor. In seguito vista la grande mole di dati prevista durante l'attività di crawling, deve essere fornita al programma una serie di politiche per poter correttamente individuare le priorità delle singole pagine portando ad una più veloce individuazione delle risorse ritenute fondamentali. Al fine di garantire un corretto mantenimento e utilizzo del modulo, deve essere implementato un sistema di log delle informazioni e degli errori. Infine, anche se non era stato richiesto obbligatoriamente, il prodotto software è stato sviluppato per essere indipendente dal sistema operativo utilizzato.
+\subsection{Notazione obiettivi}
+Si farà riferimento ai requisiti secondo le seguenti notazioni:
+\begin{table}[!htbp]
+  \centering
+    \begin{tabularx}{\textwidth}{cX}
+    \toprule
+    \textbf{Notazione}	&	\textbf{Descrizione} \\
+    \midrule
+    OB			&	Requisiti obbligatori, vincolanti in quanto obiettivo primario richiesto dal committente. \\  
+	\hline
+    D			&	Requisiti desiderabili, non vincolanti o strettamente necessari, ma dal riconoscibile valore aggiunto. \\ 
+	\hline
+    OP			&	Requisiti opzionali, rappresentanti valore aggiunto non strettamente competitivo. \\
+    \bottomrule
+    \end{tabularx}%
+  \label{tab:notazione-requisiti}%
+  \caption{Notazione dei requisiti}
+\end{table}%
 
+
+\subsection{Tabella obiettivi}
+
+\begin{table}[!htbp]
+  \centering
+    \begin{tabularx}{\textwidth}{cX}
+    \toprule
+    \textbf{Codice}	&	\textbf{Descrizione} \\
+    \midrule
+    OB1			&	Configurazione dell'ambiente di sviluppo. \\  
+	\hline
+    OB2			&	Scrittura del documento "Analisi dei Requisiti". \\ 
+	\hline
+    OB3			&	Scrittura della guida "README.md". \\
+    \hline
+    OB4			&	Progettazione del modulo di web crawling intelligente. \\
+    OB5			&	Funzionamento su rete Tor. \\
+    \hline
+    OB6			&	Funzionamento utilizzando la libreria "requests". \\
+    \hline
+    OB7			&	Implementazione di "celery". \\
+    \hline
+    OB8			&	Configurazione dei file di log. \\
+    \hline
+    OB9			&	Ricerca url da analizzare tramite tag href. \\
+    \hline
+    OB10		&	Implementazione della ricerca di informazioni interessanti tramite regex. \\
+    \hline
+    OB11		&	Implementazione di priorità di analisi calcolate dinamicamente ed intelligentemente. \\
+    \hline
+    OB12		&	Implementazione di un sistema per riprovare url con i quali è fallita la connessione. \\
+        
+    \bottomrule
+    \end{tabularx}%
+  \label{tab:notazione-requisiti}%
+  \caption{Notazione dei requisiti}
+\end{table}%
 
 \subsection{Funzionalità aggiuntive}
 
