@@ -9,13 +9,13 @@
 
 \intro{Il capitolo approfondisce l'architettura del software prima complessivamente e poi nel dettaglio, descrivendo i problemi incontrati e la soluzione applicata.}\\
 
-\section{Architettura modulo}
+\section{Architettura del modulo}
 
-Il modulo è stato progettato tenendo a mente i requisiti di scalabilità imposti dall'azienda. L'architettura è modulare ed è stata principalmente definita durante le prime settimane subendo modifiche anche in corso d'opera in risposta ai bisogni ed alle difficoltà rilevate.
+Il modulo è stato progettato tenendo a mente i requisiti di scalabilità imposti dall'azienda. L'architettura è stata definita durante le prime settimane subendo modifiche, anche in corso d'opera, in risposta ai bisogni ed alle difficoltà rilevate.
 
 \subsection{Modulo master e gestione degli url}
 
-L'architettura riguardante la gestione degli url si incentra su una coda celery nella quale vengono immagazzinati gli url da analizzare. Il modulo denominato "master" inserirà periodicamente url prelevati da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
+La gestione degli url ha come fulcro una coda celery nella quale vengono immagazzinati gli url da analizzare. Il modulo denominato "master" periodicamente inserirà nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
 
 
 \begin{figure}[!h] 
@@ -42,20 +42,20 @@ Un url (da RFC 1808, Section 2.1 https://datatracker.ietf.org/doc/html/rfc1808.h
 	\item \textbf{fragment} campo opzionale contenente informazioni aggiuntive sul path, un esempio possono essere i '\#' che indicano in quale parte della risorsa portare la vista.
 \end{itemize}
 
-Per realizzare una pulizia degli url completa serve fare le seguenti operazioni:
+Per realizzare una pulizia degli url completa. serve fare le seguenti operazioni:
 \begin{enumerate}
-	\item Eliminazione del campo opzionale fragment. Questo viene fatto per evitare di analizzare due pagine identiche con campi fragment differenti;
+	\item Per evitare di analizzare due pagine identiche con campi fragment differenti, viene eliminato il campo opzionale fragment;
 	\item Rendere tutti i caratteri nei campi scheme e netloc minuscoli;
 	\item Eliminazione di tutti gli url con contenuto nel campo scheme differente da http o https;
 	\item Aggiunta di http nel campo scheme in caso in cui sia vuoto;
 	\item Se l'url analizzato è relativo lo si trasforma in url assoluto;
-	\item Eliminazione di url uguali all'url iniziale inserito dal modulo "master", url precedente e url corrente.
+	\item Eliminazione di url uguali all'url iniziale inserito dal modulo "master", all'url precedente e all'url corrente;
 	\item Eliminazione degli url presenti nella lista di siti da non esplorare stilata dall'analista.
 \end{enumerate}
 
 \subsubsection{Riprovare url}
 
-L'analisi di alcuni url non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per riprovare l'analisi. Quando l'analisi di un url fallisce per qualsiasi motivo esso viene reinserito nella coda contenente gli url da analizzare con una priorità minore, andando quindi ad inserirlo "in fondo" alla coda. Viene inoltre modificato anche il ttl dell'url nella cache di redis, inserendo un ttl minore in modo che ignori per un breve lasso di tempo nuovi tentativi per non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo (con n scelto dall'analista) allora l'url viene scartato definitivamente.
+L'analisi di alcuni url, non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per riprovare l'analisi. Quando l'analisi di un url fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il ttl dell'url nella cache di redis, inserendo un ttl minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso url non funzionante, così da non non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo, con n scelto dall'analista, allora l'url viene scartato definitivamente.
 
 
 \subsection{Modulo worker e ricerca di informazioni interessanti}
@@ -70,5 +70,5 @@ Il modulo denominato "worker" oltre a gestire gli url andrà ad analizzare la pa
 
 \subsubsection{Ricerca informazioni interessanti}
 
-La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html tramite l'utilizzo di molteplici e complesse regex stese dall'analista in precedenza. Queste regex sono sviluppate personalmente per ogni azienda cliente, offrendo un grado di granularità a scelta dell'azienda che richiede il servizio. Se il sito non è analizzabile (ad esempio una immagine) allora viene analizzato l'header restituito dal server. Quando vengono trovate occorrenze in un url si crea l'hash della pagina tramite un algoritmo e viene controllato se l'hash è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda celery. Questa coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad Elasticsearch. \newline{}
+La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html, tramite l'utilizzo di molteplici e complesse regex stese dall'analista in precedenza. Queste regex offrono un grado di granularità aggiuntivo poichè esse vengono sviluppate specificatamente per ogni azienda cliente. Se invece il contenuto del sito non è analizzabile, ad esempio un'immagine, allora viene analizzato l'header restituito dal server. Quando vengono trovate occorrenze in un url si crea l'hash della pagina tramite un algoritmo e viene controllato se l'hash è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda celery. Questa coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad Elasticsearch. \newline{}
 Se l'hash non è presente su elasticsearch inoltre viene anche salvato il codice sorgente ed una istantanea della pagina su un bucket di Amazon S3.
