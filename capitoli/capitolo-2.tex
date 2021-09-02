@@ -7,12 +7,12 @@
 \label{cap:analisi-del-problema}
 %**************************************************************
 
-\intro{In questo capitolo vengono elencati e descritti i casi d’uso emersi durante la fase di analisi del software precedente e del prodotto sviluppato, e mostrato, tramite opportune tabelle, il tracciamento dei requisiti.}\\
+\intro{In questo capitolo si cercherà di dare una visione generale di cos'è un web crawler ed il dark web, inoltre, verrà descritto tramite opportune tabelle il tracciamento dei requisiti.}\\
 
 %**************************************************************
 \section{Cos'è un web crawler?}
 
-Un web crawler è un software che analizza i contenuti di una rete in un modo metodico e automatizzato. L'utilizzo più comune dei crawler avviene sul World Wide Web; tramite una lista di URL da visitare identifica tutti i collegamenti ipertestuali presenti nel documento e li aggiunge alla lista di URL da visitare. Data la natura della ricerca essa potrebbe protrarsi per un tempo indefinito, tuttavia, grazie ad alcune politiche si può influenzare l'ordine di ricerca, la frequenza e quali pagine evitare. I motori di ricerca odierni si basano su web crawler per poter ricercare ed indicizzare i vari siti internet.
+Un web crawler è un software che analizza i contenuti di una rete in un modo metodico e automatizzato. L'utilizzo più comune dei crawler avviene sul World Wide Web; tramite una lista di URL da visitare, identifica tutti i collegamenti ipertestuali presenti nel documento e li aggiunge alla lista di URL da visitare. Data la natura della ricerca, essa potrebbe protrarsi per un tempo indefinito; tuttavia, grazie ad alcune politiche, si può influenzare l'ordine di ricerca, la frequenza e quali pagine evitare. I motori di ricerca odierni si basano su web crawler per poter ricercare ed indicizzare i vari siti internet.
 
 \begin{figure}[!h] 
     \centering 
@@ -35,10 +35,6 @@ Con il termine web scraping ci si riferisce all'estrapolazione di dati dai siti 
 \section{Cos'è il dark web?}
 Il dark web è il World Wide Web (WWW) accessibile solamente tramite specifici software, configurazioni o autorizzazioni. Il dark web è composto quindi da diverse reti, partendo da piccole reti peer-to-peer passando a grandi reti come Tor.
 Le due reti utilizzate durante il progetto sono Tor e I2P.
-
-\subsubsection{Tor}
-\subsubsection{I2P}
-
 %**************************************************************
 \section{Studio dei moduli presenti}
 
@@ -69,69 +65,63 @@ Si farà riferimento ai requisiti secondo le seguenti notazioni:
 	\hline
 	\textbf{Codice}	&	\textbf{Descrizione} \\
     \hline
-    OB01		&	Configurazione dell'ambiente di sviluppo. \\  
+    OB01		&	Configurazione dell'ambiente di sviluppo \\  
 	\hline
-    OB02		&	Scrittura del documento "Analisi dei Requisiti". \\ 
+    OB02		&	Scrittura del documento "Analisi dei Requisiti" \\ 
 	\hline
-    OB03		&	Scrittura della guida "README.md". \\
+    OB03		&	Scrittura della guida "README.md" \\
     \hline
-    OB04		&	Progettazione del modulo di web crawling intelligente. \\
+    OB04		&	Progettazione del modulo di web crawling intelligente \\
     \hline
-    OB05		&	Funzionamento del modulo su rete Tor. \\
+    OB05		&	Funzionamento del modulo su rete Tor \\
     \hline
-    OB06		&	Funzionamento utilizzando la libreria "requests". \\
+    OB06		&	Funzionamento utilizzando la libreria "requests" \\
     \hline
-    OB07		&	Implementazione di "celery". \\
+    OB07		&	Implementazione di Celery \\
     \hline
-    OB08		&	Configurazione dei file di log. \\
+    OB08		&	Configurazione dei file di log \\
     \hline
-    OB09		&	Ricerca url da analizzare tramite tag href. \\
+    OB09		&	Ricerca url da analizzare tramite tag href \\
     \hline
-    OB10		&	Implementazione della ricerca di informazioni interessanti tramite regex. \\
+    OB10		&	Implementazione della ricerca di informazioni interessanti tramite regex \\
     \hline
-    OB11		&	Implementazione di priorità di analisi calcolate dinamicamente ed intelligentemente. \\
+    OB11		&	Implementazione di priorità di analisi calcolate dinamicamente ed intelligentemente \\
     \hline
-    OB12		&	Implementazione di un sistema per riprovare url con i quali è fallita la connessione. \\
+    OB12		&	Implementazione di un sistema per riprovare url con i quali è fallita la connessione \\
     \hline
-    D01			&	Funzionamento del modulo su clear web. \\
+    D01			&	Funzionamento del modulo su clear web \\
     \hline
-    D02			&	Implementazione di un sistema di caching tramite redis degli url visitati. \\
+    D02			&	Implementazione di un sistema di caching tramite redis degli url visitati \\
     \hline
-    D03			&	Ricerca url da analizzare in tutto il codice sorgente della pagina. \\
+    D03			&	Ricerca url da analizzare in tutto il codice sorgente della pagina \\
     \hline
-    D04			&	Sanitizzazione degli url estrapolati. \\
+    D04			&	Sanitizzazione degli url estrapolati \\
     \hline
-    D05			&	Implementazione di una lista di siti di cui evitare l'analisi. \\
+    D05			&	Implementazione di una lista di siti di cui evitare l'analisi \\
     \hline 
-    D06			&	Implementazione dell'utilizzo di Selenium. \\
+    D06			&	Implementazione dell'utilizzo di Selenium \\
     \hline
-    D07			&	Creazione di file di log in formato csv. \\
+    D07			&	Creazione di file di log in formato csv \\
     \hline
-    D08			&	Implementazione di chiamate di rete intelligenti tramite gli headers HTTP. \\
+    D08			&	Implementazione di chiamate di rete intelligenti tramite gli headers HTTP \\
     \hline
-    D09			&	Salvataggio ed utilizzo dei cookie di sessione. \\
+    D09			&	Salvataggio ed utilizzo dei cookie di sessione \\
     \hline
-    D10			&	Creazione dell'ambiente di test. \\
+    D10			&	Creazione dell'ambiente di test \\
     \hline
-    OP01		&	Implementazione di molteplici browser tramite selenium. \\
+    OP01		&	Implementazione di molteplici browser tramite selenium \\
     \hline
-    OP02		&	Funzionamento del modulo su rete I2P. \\
+    OP02		&	Funzionamento del modulo su rete I2P \\
     \hline
-    OP03		&	Estensiva gestione delle eccezioni. \\
+    OP03		&	Estensiva gestione delle eccezioni \\
     \hline
-    OP04		&	Implementazione del salvataggio di file su directory temporanee. \\
+    OP04		&	Implementazione del salvataggio di file su directory temporanee \\
     \hline
-    OP05		&	Salvataggio di screenshot e codice sorgente degli url interessanti su Amazon S3. \\
+    OP05		&	Salvataggio di screenshot e codice sorgente degli url interessanti su Amazon S3 \\
     \hline
-    OP06		&	Scrittura dei test di unità. \\
+    OP06		&	Scrittura dei test di unità \\
     \hline
 \end{longtable}%
-
-\subsection{Funzionalità aggiuntive}
-
-Oltre alle funzionalità sopra descritte, in seguito a vari confronti con il tutor aziendale, è stato deciso di arricchire il prodotto con delle nuove funzionalità. \newline{}
-La prima riguarda l'estensione delle funzionalità pre esistenti su rete indicizzata, in questo modo si può avere un tracciamento più completo del flusso seguito dal modulo durante la ricerca delle informazioni rilevanti. Un'altra funzionalità che è stata ritenuta importante da aggiungere è stata la scrittura di informazioni di diagnostica su file csv facilmente utilizzabili sia dalla macchina che da persone. \newline{} Infine l'ultima funzionalità aggiunta è la realizzazione di una libreria per poter automaticamente creare grafici e rappresentare visivamente i dati raccolti.
-
 
 %**************************************************************
 \section{Caratteristiche del modulo}
