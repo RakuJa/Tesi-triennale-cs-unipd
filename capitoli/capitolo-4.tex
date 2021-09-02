@@ -13,9 +13,9 @@
 
 Il modulo è stato progettato tenendo a mente i requisiti di scalabilità imposti dall'azienda. L'architettura è stata definita durante le prime settimane subendo modifiche, anche in corso d'opera, in risposta ai bisogni ed alle difficoltà rilevate.
 
-\subsection{Modulo master e gestione degli url}
+\subsection{Master e gestione degli url}
 
-La gestione degli url ha come fulcro una coda celery nella quale vengono immagazzinati gli url da analizzare. Il modulo denominato "master" periodicamente inserirà nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
+La gestione degli url ha come fulcro una coda celery nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserirà nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
 
 
 \begin{figure}[!h] 
@@ -26,7 +26,7 @@ La gestione degli url ha come fulcro una coda celery nella quale vengono immagaz
 
 \subsubsection{Ricerca nuovi url}
 
-Il modulo "worker" preleva gli url dalla coda celery ed inizia l'analisi. Il primo controllo realizzato è se l'url è già stato analizzato, questo viene verificato controllando se è presente o meno nella cache di redis. Se l'url è presente è già stato analizzato, altrimenti deve essere analizzato. Ad inizio analisi l'url viene inserito nella cache redis con un ttl impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista (requests, celery-chrome, celery-firefox etc) e dal codice sorgente (quindi l'html) andrà ad estrarre e ripulire la lista di url. 
+Una delle funzionalità del componente "worker" è l'estrazione degli url dalla coda celery e la loro analisi. Il primo controllo realizzato è se l'url è già stato analizzato, questo viene verificato controllando se è presente o meno nella cache di redis. Se l'url è presente è già stato analizzato, altrimenti deve essere analizzato. Ad inizio analisi l'url viene inserito nella cache redis con un ttl impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista (requests, celery-chrome, celery-firefox etc) e dal codice sorgente (quindi l'html) andrà ad estrarre e ripulire la lista di url. 
 
 
 \subsubsection{Pulizia degli url}
@@ -58,10 +58,9 @@ Per realizzare una pulizia degli url completa. serve fare le seguenti operazioni
 L'analisi di alcuni url, non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per riprovare l'analisi. Quando l'analisi di un url fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il ttl dell'url nella cache di redis, inserendo un ttl minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso url non funzionante, così da non non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo, con n scelto dall'analista, allora l'url viene scartato definitivamente.
 
 
-\subsection{Modulo worker e ricerca di informazioni interessanti}
+\subsection{Worker e ricerca di informazioni interessanti}
 
-
-Il modulo denominato "worker" oltre a gestire gli url andrà ad analizzare la pagina alla ricerca di informazioni considerate interessanti.
+Il componente denominato "worker" oltre a gestire gli url andrà ad analizzare la pagina alla ricerca di informazioni considerate interessanti.
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=0.4\columnwidth]{chapter4-project/architettura-match-search.png} 
