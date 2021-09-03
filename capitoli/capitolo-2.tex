@@ -12,34 +12,32 @@
 %**************************************************************
 \section{Cos'è un web crawler?}
 
-Un web crawler è un software che analizza i contenuti di una rete in un modo metodico e automatizzato. L'utilizzo più comune dei crawler avviene sul World Wide Web; tramite una lista di URL da visitare, identifica tutti i collegamenti ipertestuali presenti nel documento e li aggiunge alla lista di URL da visitare. Data la natura della ricerca, essa potrebbe protrarsi per un tempo indefinito; tuttavia, grazie ad alcune politiche, si può influenzare l'ordine di ricerca, la frequenza e quali pagine evitare. I motori di ricerca odierni si basano su web crawler per poter ricercare ed indicizzare i vari siti internet.
+Un web crawler è un software che analizza i contenuti di una rete in un modo metodico e automatizzato. L'utilizzo più comune dei crawler avviene sul World Wide Web; tramite una lista di URL da visitare, il crawler identifica tutti i collegamenti ipertestuali presenti nel documento e li aggiunge alla lista di URL da visitare. Data la natura della ricerca, essa potrebbe protrarsi per un tempo indefinito; tuttavia, grazie ad alcune politiche, si può influenzare l'ordine di ricerca e quali pagine evitare. I motori di ricerca odierni si basano su web crawler per poter ricercare ed indicizzare i vari siti internet.
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=0.3\columnwidth]{chapter2-analysis/WebCrawlerArchitecture.png} 
+    \includegraphics[width=0.5\columnwidth]{chapter2-analysis/WebCrawlerArchitecture.png} 
     \caption{Architettura di un web crawler.}
 \end{figure}
 
 %**************************************************************
 \section{Cosa significa web scraping?}
 
-Con il termine web scraping ci si riferisce all'estrapolazione di dati dai siti web. Il termine generalmente comprende anche l'estrapolazione fatta manualmente tramite software anche se il termine principalmente si riferisce al processo automatizzato implementato tramite web crawler. L'attività principale di cui si occupa un web scraper è la trasformazione di informazioni libere in informazioni strutturate per renderle di più facile utilizzo per una successiva analisi. 
+Con il termine web scraping ci si riferisce all'estrapolazione di dati dai siti web. Il termine generalmente comprende anche l'estrapolazione fatta manualmente tramite software, anche se il termine principalmente si riferisce al processo automatizzato implementato tramite web crawler. L'attività principale di cui si occupa un web scraper è la trasformazione di informazioni libere in informazioni strutturate per renderle di più facile utilizzo per una successiva analisi. 
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=0.3\columnwidth]{chapter2-analysis/webscraping.png} 
+    \includegraphics[width=0.6\columnwidth]{chapter2-analysis/webscraping.png} 
     \caption{Funzionamento di un web scraper.}
 \end{figure}
 
 %**************************************************************
 \section{Cos'è il dark web?}
-Il dark web è il World Wide Web (WWW) accessibile solamente tramite specifici software, configurazioni o autorizzazioni. Il dark web è composto quindi da diverse reti, partendo da piccole reti peer-to-peer passando a grandi reti come Tor.
-Le due reti utilizzate durante il progetto sono Tor e I2P.
+Il dark web è il World Wide Web (WWW) accessibile solamente tramite specifici software, configurazioni o autorizzazioni. Il dark web è composto quindi da diverse reti, partendo da piccole reti peer-to-peer passando a grandi reti come Tor. Le due reti utilizzate durante il progetto sono Tor e I2P.
 %**************************************************************
 \section{Studio dei moduli presenti}
 
-Prima di progettare e sviluppare il nuovo modulo di web crawling, ho effettuato un’analisi della struttura della piattaforma presente per comprenderne la struttura e le funzionalità offerte. Principalmente è stato fondamentale individuare l'organizzazione delle funzionalità di log, l'organizzazione dei file di configurazione e il codice principale da cui si avvia il programma. La struttura del modulo è risultata pulita, di facile comprensione e molto scalabile, richiedendo per l'inserimento del nuovo modulo l'aggiunta di poche e coincise linee di codice.
-
+Prima di progettare e sviluppare il nuovo modulo di web crawling, è stato necessario effettuare un’analisi della piattaforma presente, per comprenderne la struttura e le funzionalità offerte. Principalmente, è stato fondamentale individuare l'organizzazione delle funzionalità di log, dei file di configurazione e del codice. La struttura del modulo preesistente è risultata pulita, di facile comprensione e molto scalabile, richiedendo per l'inserimento del nuovo modulo l'aggiunta di poche e coincise linee di codice.
 
 \section{Individuazione degli obiettivi}
 
@@ -58,7 +56,7 @@ Si farà riferimento ai requisiti secondo le seguenti notazioni:
     \hline
 \end{longtable}%
 
-
+\subsection{Tabella degli obiettivi}
 \begin{longtable}{|p{0.2\textwidth}|p{0.8\textwidth}|}
 	\caption{Tabella degli obiettivi}
 	\label{tab:tabella-obiettivi} \\
