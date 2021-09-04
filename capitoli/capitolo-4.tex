@@ -31,7 +31,7 @@ Una delle funzionalità del componente "worker" è l'estrazione degli url dalla 
 
 \subsubsection{Pulizia degli url}
 Un url (da RFC 1808, Section 2.1 https://datatracker.ietf.org/doc/html/rfc1808.html\#section-2.1) è composto da \newline
-<scheme>://<netloc>/<path>;<params>?<query>\#<fragment>
+\centerline{<scheme>://<netloc>/<path>;<params>?<query>\#<fragment>}
 \newline
 \begin{itemize}
 	\item \textbf{scheme:} indica il protocollo utilizzato;
@@ -71,3 +71,26 @@ Il componente denominato "worker" oltre a gestire gli url andrà ad analizzare l
 
 La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html, tramite l'utilizzo di molteplici e complesse regex stese dall'analista in precedenza. Queste regex offrono un grado di granularità aggiuntivo poichè esse vengono sviluppate specificatamente per ogni azienda cliente. Se invece il contenuto del sito non è analizzabile, ad esempio un'immagine, allora viene analizzato l'header restituito dal server. Quando vengono trovate occorrenze in un url si crea l'hash della pagina tramite un algoritmo e viene controllato se l'hash è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda celery. Questa coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad Elasticsearch. \newline{}
 Se l'hash non è presente su elasticsearch inoltre viene anche salvato il codice sorgente ed una istantanea della pagina su un bucket di Amazon S3.
+\section{Risoluzione difficoltà incontrate}
+
+Durante il progetto, sono state individuate e risolte diverse problematiche. Prenderemo in esempio uno dei problemi affrontati in modo da esporre il modus operandi per l'individuazione e risoluzione.
+Ad ogni milestone settimanale raggiunta seguiva un periodo di test durante il quale il modulo operava e venivano raccolti diversi dati di diagnostica. Questi dati venivano poi studiati e verificato se risultassero in linea con le aspettative.
+
+\subsection{Individuazione problema}
+Durante la terza settimana di stage, avendo correttamente impostato i log ed il codice, è stato possibile osservare i risultati delle prime run di test. Questi test hanno riportato dei dati estremamente diversi da quanto previsto. Come si può vedere dal grafico la memoria utilizzata cresce sempre di più fino ad un arresto anomalo del programma dopo molte iterazioni. Questo tipo di problema viene chiamato "memory leak", ovvero della memoria non viene liberata correttamente dal programma e rimane in utilizzo, accumulandosi sempre di più.
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.4\columnwidth]{chapter4-project/test_con_memory_leak.png} 
+    \caption{Test con memory leak.}
+\end{figure}
+
+\subsection{Risoluzione del memory leak}
+
+Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria Celery con alcune specifiche impostazioni non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si può vedere un chiaro miglioramento e risoluzione nel grafico della memoria.
+
+\begin{figure}[!h] 
+    \centering 
+    \includegraphics[width=0.4\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
+    \caption{Test senza memory leak.}
+\end{figure}
