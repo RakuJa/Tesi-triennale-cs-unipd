@@ -33,11 +33,11 @@ Con il termine web scraping ci si riferisce all'estrapolazione di dati dai siti 
 
 %**************************************************************
 \section{Cos'è il dark web?}
-Il dark web è il World Wide Web (WWW) accessibile solamente tramite specifici software, configurazioni o autorizzazioni. Il dark web è composto quindi da diverse reti, partendo da piccole reti peer-to-peer passando a grandi reti come \gls{Tor}. Le due reti utilizzate durante il progetto sono \gls{Tor} e \gls{I2P}.
+Il dark web è il World Wide Web (WWW) accessibile solamente tramite specifici software, configurazioni o autorizzazioni. Il dark web è composto da diverse reti, sia piccole reti peer-to-peer e sia grandi reti come \gls{Tor}. Le due reti utilizzate durante il progetto sono \gls{Tor} e \gls{I2P}.
 %**************************************************************
-\section{Studio dei moduli presenti}
+\section{Studio dei moduli preesistenti}
 
-Prima di progettare e sviluppare il nuovo modulo di web crawling, è stato necessario effettuare un’analisi della piattaforma presente, per comprenderne la struttura e le funzionalità offerte. Principalmente, è stato fondamentale individuare l'organizzazione delle funzionalità di log, dei file di configurazione e del codice. La struttura del modulo preesistente è risultata pulita, di facile comprensione e molto scalabile, richiedendo per l'inserimento del nuovo modulo l'aggiunta di poche e coincise linee di codice.
+Prima di progettare e sviluppare il nuovo modulo di web crawling, è stato necessario effettuare un’analisi della piattaforma già presente all'interno dell'azienda, per comprenderne la struttura e le funzionalità offerte. Principalmente, è stato fondamentale individuare l'organizzazione delle funzionalità di log, dei file di configurazione e del codice. La struttura del modulo preesistente è risultata pulita, di facile comprensione e molto scalabile, richiedendo per l'inserimento del nuovo modulo l'aggiunta di poche e coincise linee di codice.
 
 \section{Individuazione degli obiettivi}
 
@@ -126,4 +126,4 @@ Si farà riferimento ai requisiti secondo le seguenti notazioni:
 %**************************************************************
 
 Il modulo, oltre a fornire tutte le funzionalità descritte precedentemente, deve avere le
-seguenti caratteristiche: deve essere scalabile e performante per permettere un aumento o diminuzione delle risorse; questo viene realizzato tramite una corretta progettazione mirata alla ottimizzazione dell'utilizzo di memoria per poter permettere a più istanze del programma di essere eseguite contemporaneamente tramite la libreria Celery.
+seguenti caratteristiche: deve essere scalabile e performante, per permettere un aumento o diminuzione delle risorse; questo viene realizzato tramite una corretta progettazione, mirata alla ottimizzazione dell'utilizzo di memoria, per poter permettere a più istanze del programma di essere eseguite contemporaneamente tramite la libreria Celery.
