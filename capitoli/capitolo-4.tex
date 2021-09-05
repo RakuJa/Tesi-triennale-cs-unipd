@@ -11,11 +11,11 @@
 
 \section{Architettura del modulo}
 
-Il modulo è stato progettato tenendo a mente i requisiti di scalabilità imposti dall'azienda. L'architettura è stata definita durante le prime settimane subendo modifiche, anche in corso d'opera, in risposta ai bisogni ed alle difficoltà rilevate.
+Il modulo è stato progettato tenendo a mente i requisiti di scalabilità imposti dall'azienda. L'architettura è stata definita durante le prime settimane e ha subito delle modifiche, anche in corso d'opera, in risposta ai bisogni ed alle difficoltà rilevate.
 
 \subsection{Master e gestione degli url}
 
-La gestione degli url ha come fulcro una coda celery, nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserirà nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
+La gestione degli url ha come fulcro una coda celery, nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserisce nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" preleva quindi gli url dalla coda assicurandosi di non averli già analizzati e tramite essi esegue la ricerca di nuovi url. 
 
 
 \begin{figure}[!h] 
@@ -69,8 +69,8 @@ Il componente denominato "worker" oltre a gestire gli url andrà ad analizzare l
 
 \subsubsection{Ricerca informazioni interessanti}
 
-La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html, tramite l'utilizzo di molteplici e complesse regex stese dall'analista in precedenza. Queste regex offrono un grado di granularità aggiuntivo poichè esse vengono sviluppate specificatamente per ogni azienda cliente. Se invece il contenuto del sito non è analizzabile, ad esempio un'immagine, allora viene analizzato l'header restituito dal server. Quando vengono trovate occorrenze in un url si crea l'hash della pagina tramite un algoritmo e viene controllato se l'hash è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda celery. Questa coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad Elasticsearch. \newline{}
-Se l'hash non è presente su elasticsearch inoltre viene anche salvato il codice sorgente ed una istantanea della pagina su un bucket di Amazon S3.
+La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html, tramite l'utilizzo di molteplici e complesse regex stese dall'analista in precedenza. Queste regex offrono un grado di granularità aggiuntivo poichè esse vengono sviluppate specificatamente per ogni azienda cliente. Se invece il contenuto del sito non è analizzabile, ad esempio un'immagine, allora viene analizzato l'header restituito dal server. Quando vengono trovate occorrenze in un url si crea l'hash della pagina tramite un algoritmo e viene controllato se l'hash è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda celery. La coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad Elasticsearch. \newline{}
+Se l'hash non è presente su elasticsearch viene inoltre salvato il codice sorgente ed una istantanea della pagina su un bucket di Amazon S3.
 \section{Risoluzione difficoltà incontrate}
 
 Durante il progetto, sono state individuate e risolte diverse problematiche. Prenderemo in esempio uno dei problemi affrontati in modo da esporre il modus operandi per l'individuazione e risoluzione.
@@ -87,7 +87,7 @@ Durante la terza settimana di stage, avendo correttamente impostato i log ed il 
 
 \subsection{Risoluzione del memory leak}
 
-Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria Celery con alcune specifiche impostazioni non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si è potuto osservare come la memoria venisse liberata correttamente.
+Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria Celery, con alcune specifiche impostazioni, non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si è potuto osservare come la memoria venisse liberata correttamente.
 
 \begin{figure}[!h] 
     \centering 
