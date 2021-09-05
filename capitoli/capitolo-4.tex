@@ -15,7 +15,7 @@ Il modulo è stato progettato tenendo a mente i requisiti di scalabilità impost
 
 \subsection{Master e gestione degli url}
 
-La gestione degli url ha come fulcro una coda celery nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserirà nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
+La gestione degli url ha come fulcro una coda celery, nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserirà nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" andrà quindi a prelevare gli url dalla coda assicurandosi di non averli già analizzati e tramite essi eseguirà la ricerca di nuovi url. 
 
 
 \begin{figure}[!h] 
@@ -26,7 +26,7 @@ La gestione degli url ha come fulcro una coda celery nella quale vengono immagaz
 
 \subsubsection{Ricerca nuovi url}
 
-Una delle funzionalità del componente "worker" è l'estrazione degli url dalla coda celery e la loro analisi. Il primo controllo realizzato è se l'url è già stato analizzato, questo viene verificato controllando se è presente o meno nella cache di redis. Se l'url è presente è già stato analizzato, altrimenti deve essere analizzato. Ad inizio analisi l'url viene inserito nella cache redis con un ttl impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista (requests, celery-chrome, celery-firefox etc) e dal codice sorgente (quindi l'html) andrà ad estrarre e ripulire la lista di url. 
+Una delle funzionalità del componente "worker" è l'estrazione degli url dalla coda celery e la loro analisi. Il primo controllo riguarda l'aver già analizzato in precedenza l'url estratto o meno. Se l'url non è presente nella cache di redis allora deve essere analizzato altrimento verrà scartato. Ad inizio analisi l'url viene inserito nella cache redis con un \gls{ttl} impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista e dal codice sorgente andrà ad estrarre e ripulire la lista di url. 
 
 
 \subsubsection{Pulizia degli url}
@@ -41,7 +41,7 @@ Un url (da RFC 1808, Section 2.1 https://datatracker.ietf.org/doc/html/rfc1808.h
 	\item \textbf{query} campo opzionale contenente informazioni aggiuntive sul path, come da nome questo campo contiene le query;
 	\item \textbf{fragment} campo opzionale contenente informazioni aggiuntive sul path, un esempio possono essere i '\#' che indicano in quale parte della risorsa portare la vista.
 \end{itemize}
-
+\noindent
 Per realizzare una pulizia degli url completa. serve fare le seguenti operazioni:
 \begin{enumerate}
 	\item Per evitare di analizzare due pagine identiche con campi fragment differenti, viene eliminato il campo opzionale fragment;
@@ -55,7 +55,7 @@ Per realizzare una pulizia degli url completa. serve fare le seguenti operazioni
 
 \subsubsection{Riprovare url}
 
-L'analisi di alcuni url, non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per riprovare l'analisi. Quando l'analisi di un url fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il ttl dell'url nella cache di redis, inserendo un ttl minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso url non funzionante, così da non non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo, con n scelto dall'analista, allora l'url viene scartato definitivamente.
+L'analisi di alcuni url non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per ritentare il procedimento. Quando l'analisi di un url fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il \gls{ttl} dell'url nella cache di redis, inserendo un ttl minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso url non funzionante, così da non non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo, con n scelto dall'analista, allora l'url viene scartato definitivamente.
 
 
 \subsection{Worker e ricerca di informazioni interessanti}
@@ -77,20 +77,20 @@ Durante il progetto, sono state individuate e risolte diverse problematiche. Pre
 Ad ogni milestone settimanale raggiunta seguiva un periodo di test durante il quale il modulo operava e venivano raccolti diversi dati di diagnostica. Questi dati venivano poi studiati e verificato se risultassero in linea con le aspettative.
 
 \subsection{Individuazione problema}
-Durante la terza settimana di stage, avendo correttamente impostato i log ed il codice, è stato possibile osservare i risultati delle prime run di test. Questi test hanno riportato dei dati estremamente diversi da quanto previsto. Come si può vedere dal grafico la memoria utilizzata cresce sempre di più fino ad un arresto anomalo del programma dopo molte iterazioni. Questo tipo di problema viene chiamato "memory leak", ovvero della memoria non viene liberata correttamente dal programma e rimane in utilizzo, accumulandosi sempre di più.
+Durante la terza settimana di stage, avendo correttamente impostato i log ed il codice, è stato possibile osservare i risultati delle prime run di test. Questi test hanno riportato dei dati estremamente diversi da quanto previsto. La memoria utilizzata cresceva sempre di più fino ad un arresto anomalo del programma dopo molte iterazioni. Questo tipo di problema viene chiamato "memory leak", ovvero della memoria non viene liberata correttamente dal programma e rimane in utilizzo, accumulandosi.
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=0.3\columnwidth]{chapter4-project/test_con_memory_leak.png} 
+    \includegraphics[width=0.4\columnwidth]{chapter4-project/test_con_memory_leak.png} 
     \caption{Test con memory leak.}
 \end{figure}
 
 \subsection{Risoluzione del memory leak}
 
-Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria Celery con alcune specifiche impostazioni non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si può vedere un chiaro miglioramento e risoluzione nel grafico della memoria.
+Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria Celery con alcune specifiche impostazioni non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si è potuto osservare come la memoria venisse liberata correttamente.
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=0.3\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
+    \includegraphics[width=0.4\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
     \caption{Test senza memory leak.}
 \end{figure}
