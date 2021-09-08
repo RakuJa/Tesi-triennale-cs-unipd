@@ -15,7 +15,7 @@ Il modulo è stato progettato tenendo a mente i requisiti di scalabilità impost
 
 \subsection{Master e gestione degli url}
 
-La gestione degli url ha come fulcro una coda celery, nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserisce nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" preleva quindi gli url dalla coda assicurandosi di non averli già analizzati e tramite essi esegue la ricerca di nuovi url. 
+La gestione degli url ha come fulcro una coda \emph{Celery}, nella quale vengono immagazzinati gli url da analizzare. Il componente denominato "master" periodicamente inserisce nella coda url estratti da una lista stilata dall'analista. Il modulo "worker" preleva quindi gli url dalla coda assicurandosi di non averli già analizzati e tramite essi esegue la ricerca di nuovi url. 
 
 
 \begin{figure}[!h] 
@@ -26,7 +26,7 @@ La gestione degli url ha come fulcro una coda celery, nella quale vengono immaga
 \newpage{}
 
 \subsubsection{Ricerca nuovi url}
-Una delle funzionalità del componente "worker" è l'estrazione degli url dalla coda celery e la loro analisi. Il primo controllo riguarda l'aver già analizzato in precedenza l'url estratto o meno. Se l'url non è presente nella cache di redis allora deve essere analizzato altrimento verrà scartato. Ad inizio analisi l'url viene inserito nella cache redis con un \gls{ttl} impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista e dal codice sorgente andrà ad estrarre e ripulire la lista di url. 
+Una delle funzionalità del componente "worker" è l'estrazione degli url dalla coda \emph{Celery} e la loro analisi. Il primo controllo riguarda l'aver già analizzato in precedenza l'url estratto o meno. Se l'url non è presente nella cache di redis allora deve essere analizzato altrimento verrà scartato. Ad inizio analisi l'url viene inserito nella cache redis con un \gls{ttl} impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista e dal codice sorgente andrà ad estrarre e ripulire la lista di url. 
 
 
 \subsubsection{Pulizia degli url}
@@ -55,7 +55,7 @@ Per realizzare una pulizia degli url completa. serve fare le seguenti operazioni
 
 \subsubsection{Riprovare url}
 
-L'analisi di alcuni url non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per ritentare il procedimento. Quando l'analisi di un url fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il \gls{ttl} dell'url nella cache di redis, inserendo un ttl minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso url non funzionante, così da non non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo, con n scelto dall'analista, allora l'url viene scartato definitivamente.
+L'analisi di alcuni url non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per ritentare il procedimento. Quando l'analisi di un \gls{url} fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il \gls{ttl} dell'url nella cache di \emph{Redis}, inserendo un \gls{ttl} minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso \gls{url} non funzionante, così da non non sovraccaricare il server. Se lo stesso \gls{url} viene riprovato n volte fallendo, con n scelto dall'analista, allora l'\gls{url} viene scartato definitivamente.
 
 
 \subsection{Worker e ricerca di informazioni interessanti}
@@ -69,28 +69,28 @@ Il componente denominato "worker" oltre a gestire gli url andrà ad analizzare l
 
 \subsubsection{Ricerca informazioni interessanti}
 
-La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html, tramite l'utilizzo di molteplici e complesse regex stese dall'analista in precedenza. Queste regex offrono un grado di granularità aggiuntivo poichè esse vengono sviluppate specificatamente per ogni azienda cliente. Se invece il contenuto del sito non è analizzabile, ad esempio un'immagine, allora viene analizzato l'header restituito dal server. Quando vengono trovate occorrenze in un url si crea l'hash della pagina tramite un algoritmo e viene controllato se l'hash è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda celery. La coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad Elasticsearch. \newline{}
-Se l'hash non è presente su elasticsearch viene inoltre salvato il codice sorgente ed una istantanea della pagina su un bucket di Amazon S3.
+La ricerca di informazioni interessanti avviene ricercando occorrenze sulla pagina html, tramite l'utilizzo di molteplici e complesse \emph{regex} stese dall'analista in precedenza. Queste \emph{regex} offrono un grado di granularità aggiuntivo poichè esse vengono sviluppate specificatamente per ogni azienda cliente. Se invece il contenuto del sito non è analizzabile, ad esempio un'immagine, allora viene analizzato l'\emph{header} restituito dal server. Quando vengono trovate occorrenze in un url si crea l'\emph{hash} della pagina tramite un algoritmo e viene controllato se l'\emph{hash} è presente su elasticsearch. Se non è presente allora viene mandato il sito con diverse informazioni aggiuntive nella coda \emph{Celery}. La coda è per un modulo differente presente nella infrastruttura, da questa coda infatti le informazioni vengono elaborate e se ritenute valide aggiunte ad \emph{Elasticsearch}. \newline{}
+Se l'\emph{hash} non è presente su \emph{Elasticsearch} viene inoltre salvato il codice sorgente ed una istantanea della pagina su un \emph{bucket} di \emph{Amazon S3}.
 \section{Risoluzione difficoltà incontrate}
 
 Durante il progetto, sono state individuate e risolte diverse problematiche. Prenderemo in esempio uno dei problemi affrontati in modo da esporre il modus operandi per l'individuazione e risoluzione.
 Ad ogni milestone settimanale raggiunta seguiva un periodo di test durante il quale il modulo operava e venivano raccolti diversi dati di diagnostica. Questi dati venivano poi studiati e verificato se risultassero in linea con le aspettative.
 
 \subsection{Individuazione problema}
-Durante la terza settimana di stage, avendo correttamente impostato i log ed il codice, è stato possibile osservare i risultati delle prime run di test. Questi test hanno riportato dei dati estremamente diversi da quanto previsto. La memoria utilizzata cresceva sempre di più fino ad un arresto anomalo del programma dopo molte iterazioni. Questo tipo di problema viene chiamato "memory leak", ovvero della memoria non viene liberata correttamente dal programma e rimane in utilizzo, accumulandosi.
+Durante la terza settimana di stage, avendo correttamente impostato i \emph{log} ed il codice, è stato possibile osservare i risultati delle prime run di test. Questi test hanno riportato dei dati estremamente diversi da quanto previsto. La memoria utilizzata cresceva sempre di più fino ad un arresto anomalo del programma dopo molte iterazioni. Questo tipo di problema viene chiamato "\emph{memory leak}", ovvero della memoria non viene liberata correttamente dal programma e rimane in utilizzo, accumulandosi.
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=1\columnwidth]{chapter4-project/test_con_memory_leak.png} 
+    \includegraphics[width=0.8\columnwidth]{chapter4-project/test_con_memory_leak.png} 
     \caption{Test con memory leak}
 \end{figure}
 
 \subsection{Risoluzione del memory leak}
 
-Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria Celery, con alcune specifiche impostazioni, non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si è potuto osservare come la memoria venisse liberata correttamente.
+Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria \emph{Celery}, con alcune specifiche impostazioni, non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si è potuto osservare come la memoria venisse liberata correttamente.
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=1\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
+    \includegraphics[width=0.8\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
     \caption{Test senza memory leak}
 \end{figure}
