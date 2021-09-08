@@ -21,11 +21,11 @@ La gestione degli url ha come fulcro una coda celery, nella quale vengono immaga
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=1\columnwidth]{chapter4-project/architettura-gestione-url.png} 
-    \caption{Architettura della gestione degli url in dettaglio.}
+    \caption{Architettura della gestione degli url in dettaglio}
 \end{figure}
+\newpage{}
 
 \subsubsection{Ricerca nuovi url}
-
 Una delle funzionalità del componente "worker" è l'estrazione degli url dalla coda celery e la loro analisi. Il primo controllo riguarda l'aver già analizzato in precedenza l'url estratto o meno. Se l'url non è presente nella cache di redis allora deve essere analizzato altrimento verrà scartato. Ad inizio analisi l'url viene inserito nella cache redis con un \gls{ttl} impostato dall'analista. Il worker quindi si occuperà di contattare il sito richiesto utilizzando il metodo specificato dall'analista e dal codice sorgente andrà ad estrarre e ripulire la lista di url. 
 
 
@@ -64,7 +64,7 @@ Il componente denominato "worker" oltre a gestire gli url andrà ad analizzare l
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=0.4\columnwidth]{chapter4-project/architettura-match-search.png} 
-    \caption{Architettura della ricerca di match in dettaglio.}
+    \caption{Architettura della ricerca di match in dettaglio}
 \end{figure}
 
 \subsubsection{Ricerca informazioni interessanti}
@@ -81,8 +81,8 @@ Durante la terza settimana di stage, avendo correttamente impostato i log ed il 
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=0.4\columnwidth]{chapter4-project/test_con_memory_leak.png} 
-    \caption{Test con memory leak.}
+    \includegraphics[width=1\columnwidth]{chapter4-project/test_con_memory_leak.png} 
+    \caption{Test con memory leak}
 \end{figure}
 
 \subsection{Risoluzione del memory leak}
@@ -91,6 +91,6 @@ Per la risoluzione del problema è stata prima effettuata una analisi del codice
 
 \begin{figure}[!h] 
     \centering 
-    \includegraphics[width=0.4\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
-    \caption{Test senza memory leak.}
+    \includegraphics[width=1\columnwidth]{chapter4-project/test_senza_memory_leak.png} 
+    \caption{Test senza memory leak}
 \end{figure}
