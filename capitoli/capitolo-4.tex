@@ -31,7 +31,7 @@ Una delle funzionalità del componente "worker" è l'estrazione degli url dalla 
 
 \subsubsection{Pulizia degli url}
 Un url (\href{https://datatracker.ietf.org/doc/html/rfc1808.html#section-2.1}{da RFC 1808, Sezione 2.1}) è composto da \newline
-\centerline{<scheme>://<netloc>/<path>;<params>?<query>\#<fragment>}
+\centerline{\texttt{<scheme>://<netloc>/<path>;<params>?<query>\#<fragment>}}
 \newline
 \begin{itemize}
 	\item \textbf{scheme:} indica il protocollo utilizzato;
@@ -84,7 +84,7 @@ Durante la terza settimana di stage, avendo correttamente impostato i \emph{log}
     \includegraphics[width=0.8\columnwidth]{chapter4-project/test_con_memory_leak.png} 
     \caption{Test con memory leak}
 \end{figure}
-
+\newpage{}
 \subsection{Risoluzione del memory leak}
 
 Per la risoluzione del problema è stata prima effettuata una analisi del codice scritto, andando a stilare una lista di possibili problematiche collegate alla gestione della memoria. Una prima risoluzione delle problematiche legate al codice, non ha portato a miglioramenti nelle prestazioni. Per questo motivo è stata fatta una ricerca di problemi noti riguardanti le tecnologie utilizzate. Dalla ricerca è risultato che la libreria \emph{Celery}, con alcune specifiche impostazioni, non rilasciasse correttamente la memoria. Cambiando le impostazioni ed eseguendo una nuova run di test, si è potuto osservare come la memoria venisse liberata correttamente.
