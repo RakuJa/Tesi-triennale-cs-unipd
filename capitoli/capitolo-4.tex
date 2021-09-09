@@ -55,7 +55,7 @@ Per realizzare una pulizia degli url completa. serve fare le seguenti operazioni
 
 \subsubsection{Riprovare url}
 
-L'analisi di alcuni url non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per ritentare il procedimento. Quando l'analisi di un \gls{url} fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il \gls{ttl} dell'url nella cache di \emph{Redis}, inserendo un \gls{ttl} minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso \gls{url} non funzionante, così da non non sovraccaricare il server. Se lo stesso \gls{url} viene riprovato n volte fallendo, con n scelto dall'analista, allora l'\gls{url} viene scartato definitivamente.
+L'analisi di alcuni url non andrà sempre a buon fine, per questo è stato necessario progettare una logica solida per ritentare il procedimento. Quando l'analisi di un url fallisce per qualsiasi motivo, esso viene reinserito nella coda contenente gli url da analizzare; all'url verrà assegnata una priorità minore, andando quindi ad inserirlo in fondo alla coda. Viene inoltre modificato il \gls{ttl} dell'url nella cache di \emph{Redis}, inserendo un \gls{ttl} minore, in modo che vengano ignorati per un breve lasso di tempo nuovi tentativi con lo stesso url non funzionante, così da non non sovraccaricare il server. Se lo stesso url viene riprovato n volte fallendo, con n scelto dall'analista, allora l'url viene scartato definitivamente.
 
 
 \subsection{Worker e ricerca di informazioni interessanti}
