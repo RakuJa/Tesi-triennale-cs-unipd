@@ -7,7 +7,7 @@
 \label{cap:verifica-validazione}
 %**************************************************************
 
-\intro{In questo capitolo viene descritto come sono state affrontate le attività di verifica e validazione del prodotto.}\\
+\intro{In questo capitolo viene descritto come sono state affrontate le attività di verifica e validazione del prodotto. La sezione 5.1 tratta le considerazioni sulla verifica del software, la sezione 5.2 l'analisi statica e la sezione 5.2 l'analisi dinamica.}\\
 
 %**************************************************************
 \section{Considerazioni}
@@ -16,26 +16,22 @@
 Nel piano di lavoro, redatto dal tutor aziendale e approvato dal tutor interno, veniva menzionato lo sviluppo del test automatici come un obiettivo opzionale, preferendo ad essi nuove feature. Per questo, in accordo con il mio tutor aziendale, mi sono dedicato maggiormente all’implementazione e documentazione di esse. Ho comunque avuto modo di effettuare dei test manuali sull’applicativo, verificando il suo corretto funzionamento. I test automatici, che per mancanza di tempo non sono stati sviluppati, verranno implementati successivamente dall’azienda, per poter sanare possibili errori e verificare la qualità del software prodotto.
 
 \section{Analisi statica}
-
-Per effettuare l’analisi statica del codice, non sono stati utilizzati particolati strumenti, perché è stato ritenuto che l’\emph{IDE} \emph{PyCharm} fornisse aiuti più che sufficienti. \emph{PyCharm} possiede suggerimenti riguardanti eventuali errori nel codice e miglioramenti per ottimizzare la scrittura del codice.
-In particolare, \emph{PyCharm} segnala, più comunemente:
+Per effettuare l’analisi statica del codice, non sono stati utilizzati particolati strumenti, perché è stato ritenuto che l’\emph{IDE} \emph{PyCharm} fornisse aiuti più che sufficienti. \emph{PyCharm} possiede suggerimenti riguardanti eventuali errori nel codice e miglioramenti per ottimizzare la scrittura del codice. In particolare, \emph{PyCharm} segnala, più comunemente:
 \begin{itemize}
 	\item incoerenza tra tipi di dati coinvolti in un’istruzione se utilizzati i \emph{type hint};
-	\item codice non raggiungibile dal flusso di controllo;
-	\item codice duplicato;
+	\item codice non raggiungibile dal flusso di controllo e codice duplicato;
 	\item librerie utilizzate ma non dichiarate nei requisiti del progetto;
 	\item variabili dichiarate ma non utilizzate;
 	\item possibile staticità dei metodi;
 	\item metodi dichiarati ma non implementati;
 	\item controllo delle librerie importate ma non utilizzate.
 \end{itemize}
-\noindent
 Inoltre, per concludere, \emph{PyCharm} offre due funzionalità fondamentali, una è la formattazione automatica del codice (ricordando che in \emph{Python} codice mal formattato non viene eseguito) e l’altra è l’importazione e organizzazione di classi, moduli e librerie, sempre automatica.
 
 \section{Analisi dinamica}
 
 Per quanto concerne l’analisi dinamica, ho potuto verificare il codice utilizzando due strumenti fondamentali quali il debugger integrato di \emph{PyCharm} e la libreria Python logger. I test sono stati tutti effettuati manualmente, a questo fine sono state create tre macchine virtuali connesse nella stessa rete. La prima centralizza i servizi utilizzati, quali \emph{Redis} e \emph{RabbitMQ}, ed il componente denominato master. Le altre due macchine, invece, effettuavano lo scraping utilizzando il componente denominato worker collegandosi ai servizi offerti dalla prima macchina. \newline{}
-Al termine di una run di test viene effettuato un lavoro di analisi dei \emph{log}. Utilizzando una libreria Python da me sviluppata, si può ottenere una visualizzazione grafica delle informazioni ritenute interessanti dall'analista, facilitandone il lavoro. Un esempio concreto è l'analisi dell'utilizzo di memoria da parte del modulo durante le varie iterazioni, una rappresentazione grafica può risultare più facilmente intepretabile.
+Al termine di una run di test viene effettuato un lavoro di analisi dei \emph{log}. Utilizzando una libreria Python da me sviluppata, si può ottenere una visualizzazione grafica (come mostrato in figura \ref{fig:visualizzazione-utilizzo-memoria}) delle informazioni ritenute interessanti dall’analista, facilitandone il lavoro. Un esempio concreto è l’analisi dell’utilizzo di memoria da parte del modulo durante le varie iterazioni, una rappresentazione grafica può risultare più facilmente intepretabile. Per una legenda dettagliata del grafico fare riferimento a \ref{subsec:lettura grafico di memoria}.
 
 \begin{figure}[!h] 
     \centering 

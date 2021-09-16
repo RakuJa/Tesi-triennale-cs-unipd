@@ -7,48 +7,50 @@
 \label{cap:strumenti-e-tecnologie}
 %**************************************************************
 
-\intro{Analisi e descrizione delle tecnologie utilizzate}\\
+\intro{In questo capitolo viene fornita una panoramica sull’analisi e descrizione delle tecnologie utilizzate. Vengono elencati e motivati, rispettivamente nella sezione 3.1 e 3.2, gli strumenti e le tecnologie utilizzati.}\\
 
 %**************************************************************
 \section{Strumenti utilizzati}
 
-\subsection{Ambiente di sviluppo}
-Durante le 8 settimane di stage, mi è stata assegnata una macchina con sistema operativo Windows 10 64 bit per svolgere il tirocinio universitario. Mi è stato richiesto di utilizzare VirtualBox per poter creare l'ambiente di sviluppo e l'ambiente di test. \emph{VirtualBox} è un software gratuito e open source per l'esecuzione di macchine virtuali per architettura x86 e 64bit che supporta Windows, GNU/Linux e macOS come sistemi operativi host, ed è in grado di eseguire Windows, GNU/Linux, OS/2 Warp, BSD come ad esempio OpenBSD, FreeBSD e infine Solaris e OpenSolaris come sistemi operativi guest.\newline{}
-Nella macchina virtuale in seguito mi è stato consigliato di utilizzare \emph{PyCharm} come strumento per lo sviluppo del prodotto. \emph{PyCharm} è un \emph{IDE} integrato multi-piattaforma per \emph{Python}; è un software distribuito sotto i termini della Apache License nella sua versione "Community".
+Lo stage universitario ha comportato la scelta e l'utilizzo di diversi strumenti. Nel dettaglio, vengono presentati in \ref{subsec: sviluppo} gli strumenti per lo sviluppo, in \ref{subsec: versionamento} quelli per il versionamento, in \ref{subsec: aziendali} quelli per la comunicazione aziendale e in \ref{subsec: altri strumenti} i rimanenti strumenti utilizzati.
+
+\subsection{Ambiente di sviluppo} \label{subsec: sviluppo}
+Durante le 8 settimane di stage, mi è stata assegnata una macchina con sistema operativo Windows 10 64 bit per svolgere il tirocinio universitario. Mi è stato richiesto di utilizzare VirtualBox per poter creare l’ambiente di sviluppo e l’ambiente di test. \emph{VirtualBox}, il quale logo è rappresentato nella figura \ref{fig:virtualbox}, è un software gratuito e open source per l’esecuzione di macchine virtuali per architettura x86 e 64bit che supporta Windows, GNU/Linux e macOS come sistemi operativi host, ed è in grado di eseguire Windows, GNU/Linux, OS/2 Warp, BSD come ad esempio OpenBSD, FreeBSD e infine Solaris e OpenSolaris come sistemi operativi guest.\newline{}
+Nella macchina virtuale in seguito mi è stato consigliato di utilizzare \emph{PyCharm} come strumento per lo sviluppo del prodotto. \emph{PyCharm} è un \emph{IDE} integrato multi-piattaforma per \emph{Python}; è un software distribuito sotto i termini della Apache License nella sua versione ``Community''. Il logo di \emph{PyCharm} è riportato nella figura \ref{fig:pycharm}.
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.4\linewidth]{chapter3-tech/tools/develop/logo-virtualbox.png} 
+        \includegraphics[width=.3\linewidth]{chapter3-tech/tools/develop/logo-virtualbox.png} 
         \caption{Logo Virtualbox} 
         \label{fig:virtualbox} 
     \end{minipage}% 
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.4\linewidth]{chapter3-tech/tools/develop/logo-pycharm.png} 
+        \includegraphics[width=.3\linewidth]{chapter3-tech/tools/develop/logo-pycharm.png} 
         \caption{Logo PyCharm} 
         \label{fig:pycharm} 
     \end{minipage}  
 \end{figure}
 
 \noindent
-Nelle macchine virtuali, sono stati da me configurati due ambienti con due sistemi operativi diversi. L'ambiente di sviluppo è stato configurato con sistema operativo Debian 10.10 (Buster) mentre l'ambiente di test è stato configurato per simulare il più possibile l'ambiente in produzione, utilizzando quindi come sistema operativo CentOS 7.
+Nelle macchine virtuali, sono stati da me configurati due ambienti con due sistemi operativi diversi. L’ambiente di sviluppo è stato configurato con sistema operativo Debian 10.10 (Buster, rappresentato in figura \ref{fig:debian}) mentre l’ambiente di test è stato configurato per simulare il più possibile l’ambiente in produzione, utilizzando quindi come sistema operativo CentOS~7 (figura \ref{fig:centos}).
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.4\linewidth]{chapter3-tech/tools/develop/logo-debian.png} 
+        \includegraphics[width=.3\linewidth]{chapter3-tech/tools/develop/logo-debian.png} 
         \caption{Logo Debian} 
-        \label{fig:virtualbox} 
+        \label{fig:debian} 
     \end{minipage}% 
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.4\linewidth]{chapter3-tech/tools/develop/logo-centos.png} 
+        \includegraphics[width=.6\linewidth]{chapter3-tech/tools/develop/logo-centos.png} 
         \caption{Logo CentOS} 
-        \label{fig:pycharm} 
+        \label{fig:centos} 
     \end{minipage}  
 \end{figure}
-\subsection{Strumenti di versionamento}
+\subsection{Strumenti di versionamento} \label{subsec: versionamento}
 
-L’azienda, per tutti i suoi prodotti, adotta strumenti per il controllo di versione, nello specifico \emph{Git}. \emph{Git} è un software di controllo versione distribuito utilizzabile da interfaccia a riga di comando, creato da Linus Torvalds nel 2005. È stato scelto, rispetto ad altri strumenti di \gls{VCS}, per il supporto di branching e merging e perché comprende strumenti specifici per visualizzare e navigare una cronologia di sviluppo non lineare. Infine, come servizio di hosting web-based, è stato utilizzato \emph{GitLab}.
+L’azienda, per tutti i suoi prodotti, adotta strumenti per il controllo di versione, nello specifico \emph{Git}. \emph{Git}, il quale logo è visibile in figura \ref{fig:git}, è un software di controllo versione distribuito utilizzabile da interfaccia a riga di comando, creato da Linus Torvalds nel 2005. È stato scelto, rispetto ad altri strumenti di \gls{VCS}, per il supporto di branching e merging e perché comprende strumenti specifici per visualizzare e navigare una cronologia di sviluppo non lineare. Infine, come servizio di hosting web-based, è stato utilizzato \emph{GitLab} il cui logo è rappresentato in figura \ref{fig:gitlab}. 
 
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
@@ -65,29 +67,29 @@ L’azienda, per tutti i suoi prodotti, adotta strumenti per il controllo di ver
     \end{minipage}  
 \end{figure}
 
-\subsection{Strumenti aziendali}
+\subsection{Strumenti aziendali} \label{subsec: aziendali}
 
-Per quanto riguarda la comunicazione con il tutor aziendale, sono stati utilizzati \emph{Microsoft Teams} e Whatsapp. Entrambi gli strumenti sono stati utilizzati per comunicare con il tutor ed il personale aziendale durante tutto il tirocinio universitario.
+Per quanto riguarda la comunicazione con il tutor aziendale, sono stati utilizzati \emph{Microsoft Teams} e \emph{Whatsapp}, i cui loghi sono riportati rispettivamente nella figura \ref{fig:teams} e nella figura \ref{fig:whatsapp}. Entrambi gli strumenti sono stati utilizzati per comunicare con il tutor ed il personale aziendale durante tutto il tirocinio universitario.
 
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.4\linewidth]{chapter3-tech/tools/company/logo-teams.png} 
+        \includegraphics[width=.3\linewidth]{chapter3-tech/tools/company/logo-teams.png} 
         \caption{Logo Microsoft Teams} 
         \label{fig:teams} 
     \end{minipage}% 
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.4\linewidth]{chapter3-tech/tools/company/logo-whatsapp.png} 
+        \includegraphics[width=.3\linewidth]{chapter3-tech/tools/company/logo-whatsapp.png} 
         \caption{Logo WhatsApp} 
         \label{fig:whatsapp} 
     \end{minipage}  
 \end{figure}
+\newpage{}
+\subsection{Altri strumenti} \label{subsec: altri strumenti}
 
-\subsection{Altri strumenti}
-
-Per avere un sistema di caching atto ad evitare di analizzare più volte lo stesso url in un breve lasso di tempo, si è utilizzato \emph{Redis}. \emph{Redis} è lo store di strutture dati chiave-valore in memoria più usato, è rapido ed open source. I suoi principali casi d'uso sono il caching, la gestione di sessioni, servizi pub/sub e graduatorie. Dispone di licenza BSD ed è un acronimo e sta per REmote DIctionary Server.
-Per creare più istanze del programma e per immagazzinare in una struttura di dati flessibile gli url da analizzare, è stato utilizzato \emph{Celery}. \emph{Celery} è un gestore di code asincrono open source basato sul passaggio di messaggi distribuiti. Le unità di esecuzione, chiamate tasks, sono eseguite in concorrenza in uno o più nodi worker utilizzando il multiprocessing, eventlet o gevent.
+Per avere un sistema di caching atto ad evitare di analizzare più volte lo stesso url in un breve lasso di tempo, si è utilizzato \emph{Redis}. \emph{Redis} è lo store di strutture dati chiave-valore in memoria più usato, è rapido ed open source. I suoi principali casi d’uso sono il caching, la gestione di sessioni, servizi pub/sub e graduatorie. Dispone di licenza BSD ed è un acronimo e sta per REmote DIctionary Server.
+Per creare più istanze del programma e per immagazzinare in una struttura di dati flessibile gli url da analizzare, è stato utilizzato \emph{Celery}. \emph{Celery} è un gestore di code asincrono open source basato sul passaggio di messaggi distribuiti. Le unità di esecuzione, chiamate tasks, sono eseguite in concorrenza in uno o più nodi worker utilizzando il multiprocessing, eventlet o gevent. Il logo di \emph{Redis} viene riportato nella figura \ref{fig:redis}, mentre il logo di \emph{Celery} nella figura \ref{fig:celery}.
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
@@ -104,7 +106,7 @@ Per creare più istanze del programma e per immagazzinare in una struttura di da
 \end{figure}
 
 \noindent
-\emph{RabbitMQ} è un message-oriented middleware (detto anche \gls{broker}) che implementa il protocollo Advanced Message Queuing Protocol (AMQP). Esso è stato utilizzato per comunicare con \emph{Celery}. Il server \emph{RabbitMQ} è scritto in \emph{Erlang} e si basa sul framework Open Telecom Platform (OTP) per la gestione del \emph{clustering} e del \emph{failover}.
+\emph{RabbitMQ} è un message-oriented middleware (detto anche \gls{broker}) che implementa il protocollo Advanced Message Queuing Protocol (AMQP). Esso è stato utilizzato per comunicare con \emph{Celery}. Il server \emph{RabbitMQ} è scritto in \emph{Erlang} e si basa sul framework Open Telecom Platform (OTP) per la gestione del \emph{clustering} e del \emph{failover}. Il logo di \emph{RabbitMQ} è riportato nella figura \ref{fig:rabbitmq}.
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=0.4\columnwidth]{chapter3-tech/tools/others/logo-rabbitmq.png} 
@@ -113,17 +115,17 @@ Per creare più istanze del programma e per immagazzinare in una struttura di da
 \end{figure}
 
 \noindent
-Per salvare lo stato dei siti interessanti per il modulo, si è deciso di immagazzinare il codice sorgente ed una istantanea del sito. Per il salvataggio si è utilizzato \emph{Amazon S3}. \emph{Amazon S3} (Simple Storage Service) è un servizio web di memorizzazione offerto da Amazon Web Services.\newline{} Per salvare e ricercare informazioni dettagliate sui siti interessanti per il modulo, viene utilizzato \emph{Elasticsearch}. \emph{Elasticsearch} è un server di ricerca basato su Lucene, con capacità Full Text e supporto ad architetture distribuite. Tutte le funzionalità sono nativamente esposte tramite interfaccia RESTful.
+Per salvare lo stato dei siti interessanti per il modulo, si è deciso di immagazzinare il codice sorgente ed una istantanea del sito. Per il salvataggio si è utilizzato \emph{Amazon S3}, il cui logo è presente in figura \ref{fig:amazons3}. \emph{Amazon S3} (Simple Storage Service) è un servizio web di memorizzazione offerto da Amazon Web Services.\newline{} Per salvare e ricercare informazioni dettagliate sui siti interessanti per il modulo, viene utilizzato \emph{Elasticsearch}. \emph{Elasticsearch}, il cui logo è raffigurato in figura \ref{fig:elasticsearch}, è un server di ricerca basato su Lucene, con capacità Full Text e supporto ad architetture distribuite. Tutte le funzionalità sono nativamente esposte tramite interfaccia RESTful.
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.5\linewidth]{chapter3-tech/tools/others/logo-amazons3.png} 
+        \includegraphics[width=1\linewidth]{chapter3-tech/tools/others/logo-amazons3.png} 
         \caption{Amazon S3} 
         \label{fig:amazons3} 
     \end{minipage}% 
     \begin{minipage}{.5\textwidth} 
         \centering 
-        \includegraphics[width=.5\linewidth]{chapter3-tech/tools/others/logo-elasticsearch.png} 
+        \includegraphics[width=1\linewidth]{chapter3-tech/tools/others/logo-elasticsearch.png} 
         \caption{Logo Elasticsearch} 
         \label{fig:elasticsearch} 
     \end{minipage}% 
@@ -131,10 +133,10 @@ Per salvare lo stato dei siti interessanti per il modulo, si è deciso di immaga
 
 %**************************************************************
 \section{Tecnologie utilizzate}
-
-\subsection{Linguaggi}
-Il principale linguaggio utilizzato è stato \emph{Python}, in versione 3.7.3. \emph{Python} è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni distribuite, \emph{scripting}, computazione numerica e \emph{system testing}. Sebbene \emph{Python} venga in genere considerato un linguaggio interpretato, in realtà il codice sorgente non viene convertito direttamente in linguaggio macchina. Infatti passa prima da una fase di pre-compilazione in \emph{bytecode}, che viene quasi sempre riutilizzato dopo la prima esecuzione del programma, evitando così di reinterpretare ogni volta il sorgente e migliorando le prestazioni. La scelta della versione è ricaduta su quella ritenuta più stabile e che non creasse conflitti con gli altri strumenti e tecnologie.\newline{}
-Per la gestione e configurazione dei file di configurazione è stato utilizzato \emph{YAML}, un formato per la serializzazione di dati utilizzabile da esseri umani. Il nome definisce l'acronimo ricorsivo "YAML Ain't a Markup Language".
+Le tecnologie adoperate nel progetto di stage sono state fonte di discussione con il tutor aziendale. Nel dettaglio i linguaggi utilizzati vengono trattati nella sezione \ref{subsec: Linguaggi} e i framework nella sezione \ref{subsec: Framework}. Per i dettagli implementativi riguardanti le loro applicazioni si veda il capitolo \ref{cap:progettazione-codifica} riguardante la progettazione e codifica.
+\subsection{Linguaggi} \label{subsec: Linguaggi}
+Il principale linguaggio utilizzato è stato \emph{Python}, in versione 3.7.3. Il suo logo è riportato in figura \ref{fig:python}. \emph{Python} è un linguaggio di programmazione ad alto livello, orientato agli oggetti, adatto, tra gli altri usi, a sviluppare applicazioni distribuite, \emph{scripting}, computazione numerica e \emph{system testing}. Sebbene \emph{Python} venga in genere considerato un linguaggio interpretato, in realtà il codice sorgente non viene convertito direttamente in linguaggio macchina. Infatti passa prima da una fase di pre-compilazione in \emph{bytecode}, che viene quasi sempre riutilizzato dopo la prima esecuzione del programma, evitando così di reinterpretare ogni volta il sorgente e migliorando le prestazioni. La scelta della versione è ricaduta su quella ritenuta più stabile e che non creasse conflitti con gli altri strumenti e tecnologie.\newline{}
+Per la gestione e configurazione dei file di configurazione è stato utilizzato \emph{YAML}, un formato per la serializzazione di dati utilizzabile da esseri umani. Il logo è riportato in figura \ref{fig:yaml} ed il nome definisce l’acronimo ricorsivo ``YAML Ain’t a Markup Language''.
 \begin{figure}[!h]
     \begin{minipage}{.5\textwidth} 
         \centering 
@@ -149,13 +151,13 @@ Per la gestione e configurazione dei file di configurazione è stato utilizzato 
         \label{fig:yaml} 
     \end{minipage}% 
 \end{figure}
-\subsection{Framework}
-\emph{Selenium} è un \emph{framework} per la gestione automatizzata dei browser. È stato utilizzato per simulare il comportamento di un utente reale all'interno di un browser evitando così i controlli \emph{antibot}. \emph{Selenium} è multipiattaforma, funziona su Windows, Linux e macOS, ed è un software open source rilasciato con la licenza Apache 2.0.
+\subsection{Framework} \label{subsec: Framework}
+\emph{Selenium} è un \emph{framework} per la gestione automatizzata dei browser, il suo logo è riportato in figura \ref{fig:selenium}. È stato utilizzato per simulare il comportamento di un utente reale all’interno di un browser evitando così i controlli \emph{antibot}. \emph{Selenium} è multipiattaforma, funziona su Windows, Linux e macOS, ed è un software open source rilasciato con la licenza Apache 2.0.
 \begin{figure}[!h] 
     \centering 
     \includegraphics[width=0.4\columnwidth]{chapter3-tech/frameworks/logo-selenium.png} 
     \caption{Logo Selenium}
-    label{fig:selenium} 
+    \label{fig:selenium} 
 \end{figure}
 
 %**************************************************************
